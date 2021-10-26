@@ -1,0 +1,252 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<body>
+	{% if showOutput == 0 %}
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+		<div class="limiter">
+			<div class="container-login100" style="background-image: url('static/images/bg-01.jpg');">
+				<div class="wrap-login100" style="height: auto; width: 600px">
+
+					<form class="login100-form validate-form" action="/get_attractions_recommendations" method="POST">
+						<a class="close" href="/home">+</a>
+						<input type="hidden" id="demo" name="count" value=0>
+
+						<span class="login100-form-title p-b-15 p-t-15">
+							Attractions
+						</span>
+
+						<div class="wrap-input100 validate-input" data-validate = "Enter Destination">
+							<input class="input100" type="text" name="destination" required placeholder="Destination">
+							<span class="focus-input100" data-placeholder="&#xf313;"></span>
+						</div>
+
+						<div class="wrap-input100 validate-input" data-validate = "Budget" style="width: 100%; float: right; margin-top: 30px; margin-bottom: 20px">
+							<p style="color: white; font-size: 17px;">Budget</p>
+						</div>
+
+						<div ng-app="">
+							<input type="range"  class="slider" id="myRange" name="budget" min="5" max="1000" value="500" ng-model="budget">
+							<div class="wrap-input100 validate-input" data-validate = "Budget" style="width: 30%; float: right">
+								<p id="budget" style="color: white; font-size: 17px; text-align: center; margin-top: -12px" ng-bind="budget"></p>
+							</div>
+						</div>
+
+						<div class="wrap-input100 validate-input" data-validate = "Choice" style="width: 100%; margin-bottom: 20px">
+							<p style="color: white; font-size: 17px;">Choices</p>
+						</div>
+
+						<div class="cuisine-box">
+							<div>
+								<label>
+									<input type="checkbox" name="rate1" id="btn1" value="private_&_custom_tours"><span>Private_&_custom_tours</span>
+								</label>
+							</div>
+
+							<div>
+								<label>
+									<input type="checkbox" name="rate2" id="btn2" value="food,wine&_nightlife"><span>Food,wine&_nightlife</span>
+								</label>
+							</div>
+
+							<div>
+								<label>
+									<input type="checkbox" name="rate3" id="btn3" value="day_trips_&_excursions"><span>Day_trips_&_excursions</span>
+								</label>
+							</div>
+
+							<div>
+								<label>
+									<input type="checkbox" name="rate4" id="btn4" value="luxury_&_special_occasions"><span>Luxury_&_special_occasions</span>
+								</label>
+							</div>
+
+							<div>
+								<label>
+									<input type="checkbox" name="rate5" id="btn5" value="air,helicopter&_balloon_tours"><span>Air,helicopter&_balloon_tours</span>
+								</label>
+							</div>
+
+							<div>
+								<label>
+									<input type="checkbox" name="rate6" id="btn6" value="tours_&_sightseeing"><span>Tours_&_sightseeing</span>
+								</label>
+							</div>
+
+							<div>
+								<label>
+									<input type="checkbox" name="rate7" id="btn7" value="family_friendly"><span>Family_friendly</span>
+								</label>
+							</div>
+
+							<div>
+								<label>
+									<input type="checkbox" name="rate8" id="btn8" value="water_sports"><span>Water_sports</span>
+								</label>
+							</div>
+
+							<div>
+								<label>
+									<input type="checkbox" name="rate9" id="btn9" value="sightseeing_tickets_&_passes"><span>Sightseeing_tickets_&_passes</span>
+								</label>
+							</div>
+
+							<div>
+								<label>
+									<input type="checkbox" name="rate10" id="btn10" value="holiday_&_seasonal_tours"><span>Holiday_&_seasonal_tours</span>
+								</label>
+							</div>
+
+							<div>
+								<label>
+									<input type="checkbox" name="rate11" id="btn11" value="recommended_experiences"><span>Recommended_experiences</span>
+								</label>
+							</div>
+
+							<div>
+								<label>
+									<input type="checkbox" name="rate12" id="btn12" value="Cultural_&_theme_tours"><span>Cultural_&_theme_tours</span>
+								</label>
+							</div>
+
+							<div>
+								<label>
+									<input type="checkbox" name="rate13" id="btn13" value="cruises,sailing&_water_tours"><span>Cruises,sailing&_water_tours</span>
+								</label>
+							</div>
+
+							<div>
+								<label>
+									<input type="checkbox" name="rate14" id="btn14" value="multi-day_&_extended_tours"><span>Multi-day_&_extended_tours</span>
+								</label>
+							</div>
+
+							<div>
+								<label>
+									<input type="checkbox" name="rate15" id="btn15" value="shows,concerts&_sports"><span>Shows,concerts&_sports</span>
+								</label>
+							</div>
+
+							<div>
+								<label>
+									<input type="checkbox" name="rate16" id="btn16" value="outdoor_activities"><span>Outdoor_activities</span>
+								</label>
+							</div>
+
+							<div>
+								<label>
+									<input type="checkbox" name="rate17" id="btn17" value="walking_&_biking_tours"><span>Walking_&_biking_tours</span>
+								</label>
+							</div>
+
+							<div>
+								<label>
+									<input type="checkbox" name="rate18" id="btn18" value="transfers_&_ground_transport"><span>Transfers_&_ground_transport</span>
+								</label>
+							</div>
+
+							<div>
+								<label>
+									<input type="checkbox" name="rate19" id="btn19" value="shore_executions"><span>Shore_executions</span>
+								</label>
+							</div>
+
+							<div>
+								<label>
+									<input type="checkbox" name="rate20" id="btn20" value="classes_&_workshops"><span>Classes_&_workshops</span>
+								</label>
+							</div>
+
+						</div>
+
+						<p style="color: white; font-size: 15px; margin-top: 20px">Select at least 1 Choice</p><br>
+
+						<div class="container-login100-form-btn" style="margin-top: 20px">
+							<button class="login100-form-btn" id="userPref">
+								Submit
+							</button>
+						</div>
+
+					</form>
+
+
+					{% if message %}
+						<input type="hidden" id="hidden" value="{{message}}">
+						<script>
+							alert(document.getElementById('hidden').value);
+						</script>
+					{% endif %}
+
+				</div>
+			</div>
+		</div>
+
+	{% endif %}
+
+	{% if showOutput == 1 %}
+	<a href="/attractions_recommendations" class="close1">+</a>
+		{% for attraction in data %}
+            <div style=" background: rgb(56,9,82);
+            background: linear-gradient(90deg, rgba(56,9,82,1) 0%, rgba(67,63,214,1) 100%);
+            width: 90%;
+            height: auto;
+            margin: 3%;
+            padding: 2%;
+            color: white;">
+                <form action="/save_attraction_to_favourites/{{attraction[0]}}/{{attraction[4]}}/{{attraction[3]}}/{{attraction[2]}}/{{attraction[1]}}/{{attraction[5]}}" method="GET">
+					<button class="favorites" type="submit">{{attraction[8]}}</button>
+				</form>
+                <p style="font-size: 25px;color: white;">{{attraction[0]}}</p>
+                {% if attraction[4] == 5.0 %}
+                    <p style="font-size: 20px; color: white">Rating :
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span></p>
+                {% endif %}
+
+                {% if attraction[4] == 4.5 %}
+                    <p style="font-size: 20px; color: white">Rating :
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked-half"></span></p>
+                {% endif %}
+
+                {% if attraction[4] == 4.0 %}
+                    <p style="font-size: 20px; color: white">Rating :
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star unchecked"></span></p>
+                {% endif %}
+
+                {% if attraction[4] == 3.5 %}
+                    <p style="font-size: 20px; color: white">Rating :
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked-half"></span>
+                        <span class="fa fa-star unchecked"></span></p>
+                {% endif %}
+
+                {% if attraction[4] == 3.0 %}
+                    <p style="font-size: 20px; color: white">Rating :
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star unchecked"></span>
+                        <span class="fa fa-star unchecked"></span></p>
+                {% endif %}
+                <p style="color: white;">Price : {{attraction[3]}}</p>
+                <p style="color: white;">City : {{attraction[2]}}</p>
+                <p style="color: white;">Province : {{attraction[1]}}</p>
+                <p style="color: white;">Category : {{attraction[5]}}</p>
+            </div>
+        {% endfor %}
+	{% endif %}
+</body>
+{% endblock %}

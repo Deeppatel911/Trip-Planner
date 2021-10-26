@@ -1,0 +1,126 @@
+{% extends 'base.html' %} {% block body %}
+
+<body style=" background-image: url('static/images/home.jpg');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: 100% 100%;">
+
+    <ul>
+        <li><a href="/home" style="float: left; font-size: 28px; font-weight: bold; margin-left: 200px; margin-top: 28px;">Trip Planner</a>
+            <img src="static/images/sunrise.png" style="width: 50px; float: left; margin-top: 32px;">
+        </li>
+        <li><a href="/logout" style="margin-top: 28px; margin-right: 200px">Logout</a></li>
+        <li><button id="dropdown2" class="dropbtn" style="margin-top: 30px;" onclick="dropdownmenu2()">Favourites</button></li>
+        <li><a href="/view_details" style="margin-top: 28px;">Profile</a></li>
+        <li><a class="active" href="/translator" style="margin-top: 28px;">Translator</a></li>
+        <li><a href="/travel_cost" style="margin-top: 28px;">Cost</a></li>
+        <li><a href="/safety" style="margin-top: 28px;">Safety</a></li>
+        <li><button id="dropdown1" class="dropbtn" style="margin-top: 28px;" onclick="dropdownmenu1()">Recommendations</button></li>
+    </ul>
+
+    <div class="dropdown-content" id="dropdown_content1">
+        <a href="/attractions_recommendations">Attractions</a>
+        <a href="/hotels_recommendations">Hotels</a>
+        <a href="/restaurants_recommendations">Restaurants</a>
+    </div>
+
+    <div class="dropdown-content" id="dropdown_content2" style="margin-left: 1100px;">
+        <a href="/favourites/attractions">Attractions</a>
+        <a href="/favourites/hotels">Hotels</a>
+        <a href="/favourites/restaurants">Restaurants</a>
+    </div>
+
+    <div id="textSpeech" class="safety-box" style="height: auto">
+        <ul style="margin-bottom: 30px">
+            <li><button style="float: left; width: 50%; font-size: 18px; color: #fefcfc; border-bottom: 1px solid #fefcfc; margin-top: 20px">Text To Speech</button></li>
+            <li><button onclick="document.getElementById('speechText').style.display = 'block'; document.getElementById('textSpeech').style.display = 'none'; " style="float: left; width: 50%; font-size: 18px; color: #fefcfc; margin-top: 20px">Speech To Text</button>                </li>
+        </ul>
+
+        <form action="/translator" method="POST">
+
+            <textarea name="my_text" rows="3" cols="39" style="margin: 30px 0 0 75px; padding: 5px; border-radius: 10px" required></textarea>
+
+            <div class="wrap-input100 validate-input" style="width: 250px; margin-left: 125px; margin-top: 30px" data-validate="language">
+                <input class="input100" type="text" name="lang" placeholder="Enter Language" required>
+                <span class="focus-input100" data-placeholder="&#xf313;"></span>
+            </div>
+
+            <div class="container-login100-form-btn" style="margin-top: 20px">
+                <button type="submit" class="login100-form-btn" style="margin-top: 10px">Translate</button>
+            </div>
+        </form>
+
+        {% if message %}
+        <div style="margin-left: auto; margin-right: auto; text-align: center; margin-top: 10px">
+            <audio controls>
+                <source src="{{ url_for('static',filename='translated_audio_output.mp3') }}" type="audio/mpeg">
+            </audio>
+        </div>
+        {% endif %}
+
+    </div>
+
+    <div id="speechText" class="safety-box" style="height: auto; display: none">
+        <ul style="margin-bottom: 30px">
+            <li><button onclick="document.getElementById('textSpeech').style.display = 'block'; document.getElementById('speechText').style.display = 'none'; " style="float: left; width: 50%; font-size: 18px; color: #fefcfc; margin-top: 20px">Text To Speech</button></li>
+            <li><button style="float: left; width: 50%; font-size: 18px; color: #fefcfc; border-bottom: 1px solid #fefcfc; margin-top: 20px">Speech To Text</button> </li>
+        </ul>
+
+        <div>
+            <div class="wrap-input100 validate-input" style="width:50%; margin-top: 50px; margin-left: 40px;" data-validate="text">
+                <input class="input100" type="text" id="lang_name" placeholder="Select Language" required>
+                <span class="focus-input100" data-placeholder="&#xf313;"></span>
+            </div>
+            <button id="set_lang" onclick="set_lang_code();" class="login100-form-btn" style="width: 150px; float: right; width: 30%; margin-top: -40px; margin-left: -40px; padding: 8px">Select</button>
+        </div>
+
+        <form action="/speech_to_text_translator" method="POST">
+            <input type="hidden" id="lang_name2" name="lang_name2">
+            <textarea id="note-textarea" name="input_text" rows="3" cols="39" style="margin: 30px 0 0 75px; padding: 5px; border-radius: 10px; width: auto;"></textarea>
+
+            <div class="container-login100-form-btn" style="margin-top: 20px; text-align: center">
+                <button type="submit" class="login100-form-btn" style="margin-top: 5px; padding: 10px; width: 150px">Submit</button>
+            </div>
+        </form>
+        <button class="login100-form-btn" id="start-record-btn" onclick="start()" style="margin-top: -65px; padding: 10px; width: 130px; float: left;">Start</button>
+        <button class="login100-form-btn" id="pause-record-btn" onclick="stop()" style="margin-top: -65px; padding: 10px; width: 130px; float: right">Pause</button><br>
+        <p id="recording-instructions" style="color: white; margin-left: 60px; margin-top: -20px; margin-bottom: 10px">Press the <strong>Start Recognition</strong> button and allow access.</p>
+        <p style="color: white;  margin-left: 60px">{{text}}</p>
+
+    </div>
+
+    {% if error_statement %}
+    <input type="hidden" id="hidden" value="{{error_statement}}">
+    <script>
+        alert(document.getElementById('hidden').value);
+    </script>
+    {% endif %}
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+<script>
+    var count1 = 0;
+    var count2 = 0;
+
+    function dropdownmenu1() {
+        if (count1 % 2 == 0) {
+            document.getElementById('dropdown_content1').style.display = 'block';
+            count1 += 1;
+        } else {
+            document.getElementById('dropdown_content1').style.display = 'none';
+            count1 += 1;
+        }
+    }
+
+    function dropdownmenu2() {
+        if (count2 % 2 == 0) {
+            document.getElementById('dropdown_content2').style.display = 'block';
+            count2 += 1;
+        } else {
+            document.getElementById('dropdown_content2').style.display = 'none';
+            count2 += 1;
+        }
+    }
+</script>
+{% endblock %}

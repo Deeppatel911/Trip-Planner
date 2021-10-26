@@ -1,0 +1,226 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<body>
+	{% if showOutput == 0 %}
+		<div class="limiter">
+            <div class="container-login100" style="background-image: url('static/images/bg-01.jpg');">
+                <div class="wrap-login100" style="height: 900px">
+                    <form action="/get_restaurants_recommendations" method="POST">
+                        <a class="close" href="/home">+</a>
+                        <span class="login100-form-title p-b-15 p-t-5">
+                            Restaurants
+                        </span>
+
+                        <div class="wrap-input100 validate-input" data-validate = "Enter Destination">
+                            <input class="input100" type="text" name="destination" required placeholder="Destination">
+                            <span class="focus-input100" data-placeholder="&#xf313;"></span>
+                        </div>
+
+                        <div class="wrap-input100 validate-input" data-validate = "Cuisine Type" style="width: 100%; margin-top: 30px; margin-bottom: 10px">
+                                <p style="color: white; font-size: 17px;">Cuisine Type</p>
+                        </div>
+
+                        <div class="cuisine-box">
+                            <div>
+                                <label>
+                                    <input type="checkbox" value="Asian" name="rate1"><span>Asian</span>
+                                </label>
+                            </div>
+
+                            <div>
+                                <label>
+                                    <input type="checkbox" value="Irish" name="rate2"><span>Irish</span>
+                                </label>
+                            </div>
+
+                            <div>
+                                <label>
+                                    <input type="checkbox" value="African" name="rate3"><span>African</span>
+                                </label>
+                            </div>
+
+                            <div>
+                                <label>
+                                    <input type="checkbox" value="Japanese" name="rate4"><span>Japanese</span>
+                                </label>
+                            </div>
+
+                            <div>
+                                <label>
+                                    <input type="checkbox" value="French" name="rate5"><span>French</span>
+                                </label>
+                            </div>
+
+                            <div>
+                                <label>
+                                    <input type="checkbox" value="Indian" name="rate6"><span>Indian</span>
+                                </label>
+                            </div>
+
+                            <div>
+                                <label>
+                                    <input type="checkbox" value="Pubs" name="rate7"><span>Pubs</span>
+                                </label>
+                            </div>
+
+                            <div>
+                                <label>
+                                    <input type="checkbox" value="Fusion" name="rate8"><span>Fusion</span>
+                                </label>
+                            </div>
+
+                            <div>
+                                <label>
+                                    <input type="checkbox" value="Sports Bar" name="rate9"><span>Sports Bar</span>
+                                </label>
+                            </div>
+
+                            <div>
+                                <label>
+                                    <input type="checkbox" value="Mexican" name="rate10"><span>Mexican</span>
+                                </label>
+                            </div>
+
+                            <div>
+                                <label>
+                                    <input type="checkbox" value="Italian" name="rate11"><span>Italian</span>
+                                </label>
+                            </div>
+
+                            <div>
+                                <label>
+                                    <input type="checkbox" value="Mediterranean" name="rate12"><span>Mediterranean</span>
+                                </label>
+                            </div>
+
+                            <div>
+                                <label>
+                                    <input type="checkbox" value="Canadian" name="rate13"><span>Canadian</span>
+                                </label>
+                            </div>
+
+                            <div>
+                                <label>
+                                    <input type="checkbox" value="Chinese" name="rate14"><span>Chinese</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="wrap-input100 validate-input" data-validate = "Cuisine Type" style="width: 100%; margin-top: 30px; margin-bottom: 10px">
+                                <p style="color: white; font-size: 17px;">Preferences</p>
+                        </div>
+
+                        <div class="cuisine-box">
+                            <div>
+                                <label>
+                                    <input type="checkbox" value="Vegetarian" name="rate15"><span>Vegetarian</span>
+                                </label>
+                            </div>
+
+                            <div>
+                                <label>
+                                    <input type="checkbox" value="Vegan" name="rate16"><span>Vegan</span>
+                                </label>
+                            </div>
+
+                            <div>
+                                <label>
+                                    <input type="checkbox" value="Halal" name="rate17"><span>Halal</span>
+                                </label>
+                            </div>
+
+                            <div>
+                                <label>
+                                    <input type="checkbox" value="Gluten Free" name="rate18"><span>Gluten Free</span>
+                                </label>
+                            </div>
+
+                        </div>
+
+                        <div class="container-login100-form-btn" style="margin-top: 20px">
+                            <button class="login100-form-btn" id="resPref">
+                                Submit
+                            </button>
+                        </div>
+
+                    </form>
+                    {% if message %}
+                        <input type="hidden" id="hidden" value="{{message}}">
+                        <script>
+                            alert(document.getElementById('hidden').value);
+                        </script>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+	{% endif %}
+
+	{% if showOutput == 1 %}
+    <a href="/restaurants_recommendations" class="close1">+</a>
+		{% for restaurant in data %}
+            <div style=" background: rgb(56,9,82);
+            background: linear-gradient(90deg, rgba(56,9,82,1) 0%, rgba(67,63,214,1) 100%);
+            width: 90%;
+            height: auto;
+            margin: 3%;
+            padding: 2%;">
+                <form action="/save_restaurant_to_favourites/{{restaurant[0]}}/{{restaurant[4]}}/{{restaurant[1]}}/{{restaurant[2]}}/{{restaurant[3]}}/{{restaurant[5]}}" method="GET">
+                    <button class="favorites" type="submit">{{restaurant[8]}}</button>
+                </form>
+                <p style="font-size: 25px; color: white">{{restaurant[0]}}</p>
+                {% if restaurant[4] == 5.0 %}
+                    <p style="font-size: 20px; color: white">Rating :
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span></p>
+                {% endif %}
+
+                {% if restaurant[4] == 4.5 %}
+                    <p style="font-size: 20px; color: white">Rating :
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked-half"></span></p>
+                {% endif %}
+
+                {% if restaurant[4] == 4.0 %}
+                    <p style="font-size: 20px; color: white">Rating :
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star unchecked"></span></p>
+                {% endif %}
+
+                {% if restaurant[4] == 3.5 %}
+                    <p style="font-size: 20px; color: white">Rating :
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked-half"></span>
+                        <span class="fa fa-star unchecked"></span></p>
+                {% endif %}
+
+                {% if restaurant[4] == 3.0 %}
+                    <p style="font-size: 20px; color: white">Rating :
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star unchecked"></span>
+                        <span class="fa fa-star unchecked"></span></p>
+                {% endif %}
+
+                <p style="color: white">Address : {{restaurant[1]}}</p>
+                <p style="color: white">City : {{restaurant[2]}}</p>
+                <p style="color: white">Postal Code : {{restaurant[3]}}</p>
+                <p style="color: white">Categories : {{restaurant[5]}}</p>
+            </div>
+        {% endfor %}
+	{% endif %}
+</body>
+{% endblock %}

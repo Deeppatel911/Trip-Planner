@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<body>
+	<div class="limiter">
+		<div class="container-login100" style="background-image: url('static/images/bg-01.jpg');">
+			<div class="wrap-login100" style="width: 600px">
+
+				<form class="login100-form validate-form" action="/register" method="post">
+
+					<span class="login100-form-title p-b-34 p-t-20">
+						Sign Up
+					</span>
+
+					<div>
+						<div class="wrap-input100 validate-input" data-validate = "Enter Last Name" style="margin-top: 0px; width: 220px; float: right">
+							<input class="input100" type="text" name="lname" placeholder="Last Name" required pattern="^[a-zA-Z]+$" title="Only Characters are allowed">
+							<span class="focus-input100" data-placeholder="&#xf207;"></span>
+						</div>
+					</div>
+
+                    <div class="wrap-input100 validate-input" data-validate = "Enter First Name" style="margin-top: 0px; width: 220px;">
+						<input class="input100" type="text" name="fname" placeholder="First Name" required pattern="^[a-zA-Z]+$" title="Only Characters are allowed">
+						<span class="focus-input100" data-placeholder="&#xf207;"></span>
+					</div>
+
+					<i class="fa fa-exclamation" id="email_icon" style="margin-top: 45px" onmouseover="document.getElementById('error_email').style.visibility = 'visible';" onmouseout="document.getElementById('error_email').style.visibility = 'hidden';"></i>
+					<div class="wrap-input100 validate-input" data-validate = "Enter Email" style="width: 98%; margin-top: 25px">
+						<input class="input100" type="email" name="email" placeholder="Email" required>
+						<span class="focus-input100" data-placeholder="&#x2709;"></span>
+					</div>
+					<small id="error_email">a</small>
+
+					<div>
+						<i class="fa fa-exclamation" id="againpass_icon" style="margin-top:45px" onmouseover="document.getElementById('error_againpass').style.visibility = 'visible';" onmouseout="document.getElementById('error_againpass').style.visibility = 'hidden';"></i>
+						<div class="wrap-input100 validate-input" data-validate = "Again Password" style="width: 220px; float: right">
+							<input class="input100" type="password" name="pass1" placeholder="Again Password" required>
+						<span class="focus-input100" data-placeholder="&#xf191;"></span>
+						</div>
+					</div>
+
+					<div class="wrap-input100 validate-input" data-validate="Enter password" style="width: 220px">
+						<input class="input100" type="password" name="pass" placeholder="Password" required>
+						<span class="focus-input100" data-placeholder="&#xf191;"></span>
+					</div>
+					<small id="error_againpass" style="margin-left: 265px">a</small>
+
+					<div data-validate = "Select Gender" style="margin-bottom:30px; margin-top: 30px">
+						<input type="radio" name="gender" value="male" style="width:20px; height:18px" checked> <span style="color: white; margin-right:40px">Male</span>
+						<input type="radio" name="gender" value="female" style="width:20px; height:18px"> <span style="color: white; margin-right:40px">Female</span>
+						<input type="radio" name="gender" value="other" style="width:20px; height:18px"> <span style="color: white">Other</span>
+					</div>
+
+					<div>
+						<div class="wrap-input100 validate-input" data-validate = "dob" style="margin-top: 0px; width: 220px; float: right">
+							<input class="input100" type="date" name="dob" required>
+						<span class="focus-input100" data-placeholder="&#x2721;"></span>
+						</div>
+					</div>
+
+                    <div class="wrap-input100 validate-input" data-validate = "Enter First Name" style="margin-top: 0px; width: 220px;">
+						<input class="input100" type="text" name="contact" pattern="^[56789]\d{9,9}$" placeholder="Contact Number" required title="Invalid Input">
+						<span class="focus-input100" data-placeholder="&#xf2b9;"></span>
+					</div>
+
+					<div class="container-login100-form-btn" style="margin-top: 30px; margin-bottom: -20px">
+						<button class="login100-form-btn">
+							Sign Up
+						</button>
+					</div>
+
+					<div class="text-center p-t-30">
+						<a class="txt1" href="/">
+							Already Have an Account?
+						</a>
+					</div>
+
+				</form>
+			</div>
+		</div>
+	</div>
+
+	{% if error_statement1 %}
+		<input type="hidden" id="hidden1" value="{{error_statement1}}">
+		<script>
+			document.getElementById("againpass_icon").style.visibility = 'visible';
+			document.getElementById("error_againpass").innerHTML = document.getElementById("hidden1").value;
+		</script>
+	{% endif %}
+
+	{% if error_statement2 %}
+		<input type="hidden" id="hidden2" value="{{error_statement2}}">
+		<script>
+			document.getElementById("email_icon").style.visibility = 'visible';
+			document.getElementById("error_email").innerHTML = document.getElementById("hidden2").value;
+		</script>
+	{% endif %}
+
+</body>
+{% endblock %}

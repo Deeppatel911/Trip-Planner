@@ -1,0 +1,74 @@
+{% extends 'base.html' %} {% block body %}
+
+<body style=" background-image: url('static/images/home.jpg');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: 100% 100%;">
+
+    <home>
+        <ul>
+            <li><a href="/home" style="float: left; font-size: 28px; font-weight: bold; margin-left: 200px; margin-top: 28px;">Trip Planner</a>
+                <img src="static/images/sunrise.png" style="width: 50px; float: left; margin-top: 32px;">
+            </li>
+            <li><a href="/logout" style="margin-top: 28px; margin-right: 200px">Logout</a></li>
+            <li><button id="dropdown2" class="dropbtn" style="margin-top: 30px;" onclick="dropdownmenu2()">Favourites</button></li>
+            <li><a href="/view_details" style="margin-top: 28px;">Profile</a></li>
+            <li><a href="/translator" style="margin-top: 28px;">Translator</a></li>
+            <li><a href="/travel_cost" style="margin-top: 28px;">Cost</a></li>
+            <li><a href="/safety" class="active" style="margin-top: 28px;">Safety</a></li>
+            <li><button id="dropdown1" class="dropbtn" style="margin-top: 28px;" onclick="dropdownmenu1()">Recommendations</button></li>
+        </ul>
+
+        <div class="dropdown-content" id="dropdown_content1">
+            <a href="/attractions_recommendations">Attractions</a>
+            <a href="/hotels_recommendations">Hotels</a>
+            <a href="/restaurants_recommendations">Restaurants</a>
+        </div>
+
+        <div class="dropdown-content" id="dropdown_content2" style="margin-left: 1100px;">
+            <a href="/favourites/attractions">Attractions</a>
+            <a href="/favourites/hotels">Hotels</a>
+            <a href="/favourites/restaurants">Restaurants</a>
+        </div>
+
+        <div class="safety-box" style="text-align: center; height: 360px; position: relative;">
+            <p class="login100-form-title p-b-20 p-t-35">Travel Safety Info</p>
+            <div style="text-align: center; padding: 15px">
+
+                <p style="margin-bottom: 15px; font-size: 17px" class="txt1">{{travel_advise}} <br/></p>
+                <p style="margin-bottom: 15px; font-size: 16px" class="txt1">{{total_cases}} <br/></p>
+                <p style="margin-bottom: 15px; font-size: 16px" class="txt1">{{total_deaths}} <br/></p>
+                <p style="margin-bottom: 15px; font-size: 16px" class="txt1">{{total_recoveries}} <br/></p>
+                <p style="margin-bottom: 20px; font-size: 16px" class="txt1">{{active_cases}} <br/></p>
+            </div>
+
+            <a href="safety" class="close">+</a>
+        </div>
+    </home>
+
+</body>
+<script>
+    var count1 = 0;
+    var count2 = 0;
+
+    function dropdownmenu1() {
+        if (count1 % 2 == 0) {
+            document.getElementById('dropdown_content1').style.display = 'block';
+            count1 += 1;
+        } else {
+            document.getElementById('dropdown_content1').style.display = 'none';
+            count1 += 1;
+        }
+    }
+
+    function dropdownmenu2() {
+        if (count2 % 2 == 0) {
+            document.getElementById('dropdown_content2').style.display = 'block';
+            count2 += 1;
+        } else {
+            document.getElementById('dropdown_content2').style.display = 'none';
+            count2 += 1;
+        }
+    }
+</script>
+{% endblock %}

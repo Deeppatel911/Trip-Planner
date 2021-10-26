@@ -1,0 +1,82 @@
+{% extends 'base.html' %} {% block body %}
+
+<body style=" background-image: url('static/images/home.jpg');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: 100% 100%;">
+
+    <ul>
+        <li><a href="/home" style="float: left; font-size: 28px; font-weight: bold; margin-left: 200px; margin-top: 28px;">Trip Planner</a>
+            <img src="static/images/sunrise.png" style="width: 50px; float: left; margin-top: 32px;">
+        </li>
+        <li><a href="/logout" style="margin-top: 28px; margin-right: 200px">Logout</a></li>
+        <li><button id="dropdown2" class="dropbtn" style="margin-top: 30px;" onclick="dropdownmenu2()">Favourites</button></li>
+        <li><a href="/view_details" style="margin-top: 28px;">Profile</a></li>
+        <li><a href="/translator" style="margin-top: 28px;">Translator</a></li>
+        <li><a href="/travel_cost" class="active" style="margin-top: 28px;">Cost</a></li>
+        <li><a href="/safety" style="margin-top: 28px;">Safety</a></li>
+        <li><button id="dropdown1" class="dropbtn" style="margin-top: 28px;" onclick="dropdownmenu1()">Recommendations</button></li>
+    </ul>
+
+    <div class="dropdown-content" id="dropdown_content1">
+        <a href="/attractions_recommendations">Attractions</a>
+        <a href="/hotels_recommendations">Hotels</a>
+        <a href="/restaurants_recommendations">Restaurants</a>
+    </div>
+
+    <div class="dropdown-content" id="dropdown_content2" style="margin-left: 1100px;">
+        <a href="/favourites/attractions">Attractions</a>
+        <a href="/favourites/hotels">Hotels</a>
+        <a href="/favourites/restaurants">Restaurants</a>
+    </div>
+
+    <div class="safety-box">
+        <p class="login100-form-title p-b-30 p-t-25">Travel Cost Info</p>
+        <form action="/travel_cost" method="POST">
+
+            <div class="wrap-input100 validate-input" style="width: 250px; margin-left: 125px; margin-top: 30px" data-validate="Enter Destination">
+                <input class="input100" type="text" name="country" placeholder="Enter Country Name" required>
+                <span class="focus-input100" data-placeholder="&#xf313;"></span>
+            </div>
+
+            <div class="container-login100-form-btn" style="margin-top: 20px">
+                <button type="submit" class="login100-form-btn" style=" margin-top: 10px">Search</button>
+            </div>
+
+        </form>
+
+        {% if message %}
+        <input type="hidden" id="hidden" value="{{message}}">
+        <script>
+            alert(document.getElementById('hidden').value);
+        </script>
+        {% endif %}
+
+    </div>
+
+</body>
+<script>
+    var count1 = 0;
+    var count2 = 0;
+
+    function dropdownmenu1() {
+        if (count1 % 2 == 0) {
+            document.getElementById('dropdown_content1').style.display = 'block';
+            count1 += 1;
+        } else {
+            document.getElementById('dropdown_content1').style.display = 'none';
+            count1 += 1;
+        }
+    }
+
+    function dropdownmenu2() {
+        if (count2 % 2 == 0) {
+            document.getElementById('dropdown_content2').style.display = 'block';
+            count2 += 1;
+        } else {
+            document.getElementById('dropdown_content2').style.display = 'none';
+            count2 += 1;
+        }
+    }
+</script>
+{% endblock %}

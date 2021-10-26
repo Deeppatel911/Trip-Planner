@@ -1,0 +1,223 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<body>
+	{% if showOutput == 0 %}
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+		<div class="limiter">
+			<div class="container-login100" style="background-image: url('static/images/bg-01.jpg');">
+				<div class="wrap-login100" style="height: auto; width: 600px">
+
+					<form class="login100-form validate-form" action="/get_hotels_recommendations" method="POST">
+						<a class="close" href="/home">+</a>
+						<input type="hidden" id="demo" name="count" value=0>
+
+						<span class="login100-form-title p-b-15 p-t-15">
+							Hotels
+						</span>
+
+						<div class="wrap-input100 validate-input" data-validate = "Enter Destination">
+							<input class="input100" type="text" name="destination" required placeholder="Destination">
+							<span class="focus-input100" data-placeholder="&#xf313;"></span>
+						</div>
+
+						<div class="wrap-input100 validate-input" data-validate = "Budget" style="width: 100%; float: right; margin-top: 30px; margin-bottom: 20px">
+							<p style="color: white; font-size: 17px;">Budget</p>
+						</div>
+
+						<div ng-app="">
+							<input type="range"  class="slider" id="myRange" name="budget" min="5" max="1000" value="500" ng-model="budget">
+							<div class="wrap-input100 validate-input" data-validate = "Budget" style="width: 30%; float: right">
+								<p id="budget" style="color: white; font-size: 17px; text-align: center; margin-top: -12px" ng-bind="budget"></p>
+							</div>
+						</div>
+
+						<div class="wrap-input100 validate-input" data-validate = "Choice" style="width: 100%; margin-bottom: 20px">
+							<p style="color: white; font-size: 17px;">Amenities:</p>
+						</div>
+
+						<div class="cuisine-box">
+							<div>
+								<label>
+									<input type="checkbox" name="rate1" id="btn1" value="Nonsmoking Hotels"><span>Nonsmoking Hotels</span>
+								</label>
+							</div>
+
+							<div>
+								<label>
+									<input type="checkbox" name="rate2" id="btn2" value="Refrigerator in Room"><span>Refrigerator in Room</span>
+								</label>
+							</div>
+
+							<div>
+								<label>
+									<input type="checkbox" name="rate15" id="btn15" value="Kitchenette"><span>Kitchenette</span>
+								</label>
+							</div>
+
+							<div>
+								<label>
+									<input type="checkbox" name="rate3" id="btn3" value="Wheelchair Access"><span>Wheelchair Access</span>
+								</label>
+							</div>
+
+							<div>
+								<label>
+									<input type="checkbox" name="rate4" id="btn4" value="Nonsmoking Rooms"><span>Nonsmoking Rooms</span>
+								</label>
+							</div>
+
+							<div>
+								<label>
+									<input type="checkbox" name="rate5" id="btn5" value="Family Rooms"><span>Family Rooms</span>
+								</label>
+							</div>
+
+							<div>
+								<label>
+									<input type="checkbox" name="rate6" id="btn6" value="Microwave"><span>Microwave</span>
+								</label>
+							</div>
+
+							<div>
+								<label>
+									<input type="checkbox" name="rate7" id="btn7" value="Free High Speed Internet Wifi"><span>Free High Speed Internet Wifi</span>
+								</label>
+							</div>
+
+							<div>
+								<label>
+									<input type="checkbox" name="rate8" id="btn8" value="Public Wifi"><span>Public Wifi</span>
+								</label>
+							</div>
+
+							<div>
+								<label>
+									<input type="checkbox" name="rate9" id="btn9" value="Breakfast Included"><span>Breakfast Included</span>
+								</label>
+							</div>
+
+							<div>
+								<label>
+									<input type="checkbox" name="rate10" id="btn10" value="Air Conditioning"><span>Air Conditioning</span>
+								</label>
+							</div>
+
+
+							<div>
+								<label>
+									<input type="checkbox" name="rate12" id="btn12" value="Laundry Service"><span>Laundry Service</span>
+								</label>
+							</div>
+
+							<div>
+								<label>
+									<input type="checkbox" name="rate11" id="btn11" value="Pet Allowed Dog Pet Friendly"><span>Pet Allowed Dog Pet Friendly</span>
+								</label>
+							</div>
+
+							<div>
+								<label>
+									<input type="checkbox" name="rate13" id="btn13" value="Free Parking"><span>Free Parking</span>
+								</label>
+							</div>
+
+							<div>
+								<label>
+									<input type="checkbox" name="rate14" id="btn14" value="Suites"><span>Suites</span>
+								</label>
+							</div>
+
+						</div>
+
+
+						<p style="color: white; font-size: 15px; margin-top: 20px">Select at least 1 Choice</p><br>
+
+						<div class="container-login100-form-btn" style="margin-top: 20px">
+							<button class="login100-form-btn" id="userPref">
+								Submit
+							</button>
+						</div>
+
+					</form>
+
+
+					{% if message %}
+						<input type="hidden" id="hidden" value="{{message}}">
+						<script>
+							alert(document.getElementById('hidden').value);
+						</script>
+					{% endif %}
+
+				</div>
+			</div>
+		</div>
+
+	{% endif %}
+
+	{% if showOutput == 1 %}
+	<a href="/hotels_recommendations" class="close1">+</a>
+		{% for hotel in data %}
+            <div style=" background: rgb(56,9,82);
+            background: linear-gradient(90deg, rgba(56,9,82,1) 0%, rgba(67,63,214,1) 100%);
+            width: 90%;
+            height: auto;
+            margin: 3%;
+            padding: 2%;
+            color: white;">
+				<form action="/save_hotel_to_favourites/{{hotel[0]}}/{{hotel[1]}}/{{hotel[4]}}/{{hotel[3]}}/{{hotel[2]}}" method="GET">
+                    <button class="favorites" type="submit">{{hotel[7]}}</button>
+                </form>
+                <p style="font-size: 25px;color: white;">{{hotel[0]}}</p>
+                {% if hotel[1] == 5.0 %}
+                    <p style="font-size: 20px; color: white">Rating :
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span></p>
+                {% endif %}
+
+                {% if hotel[1] == 4.5 %}
+                    <p style="font-size: 20px; color: white">Rating :
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked-half"></span></p>
+                {% endif %}
+
+                {% if hotel[1] == 4.0 %}
+                    <p style="font-size: 20px; color: white">Rating :
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star unchecked"></span></p>
+                {% endif %}
+
+                {% if hotel[1] == 3.5 %}
+                    <p style="font-size: 20px; color: white">Rating :
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked-half"></span>
+                        <span class="fa fa-star unchecked"></span></p>
+                {% endif %}
+
+                {% if hotel[1] == 3.0 %}
+                    <p style="font-size: 20px; color: white">Rating :
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star unchecked"></span>
+                        <span class="fa fa-star unchecked"></span></p>
+                {% endif %}
+                <p style="color: white;">Price : {{hotel[4]}}</p>
+                <p style="color: white;">Address : {{hotel[3]}}</p>
+                <p style="color: white;">Amenities : {{hotel[2]}}</p>
+            </div>
+        {% endfor %}
+	{% endif %}
+</body>
+{% endblock %}

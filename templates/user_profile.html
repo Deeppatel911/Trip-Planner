@@ -1,0 +1,161 @@
+{% extends 'base.html' %} {% block body %}
+
+<body style=" background-image: url('static/images/home.jpg');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: 100% 100%;">
+
+    <ul>
+        <li><a href="/home" style="float: left; font-size: 28px; font-weight: bold; margin-left: 200px; margin-top: 28px;">Trip Planner</a>
+            <img src="static/images/sunrise.png" style="width: 50px; float: left; margin-top: 32px;">
+        </li>
+        <li><a href="/logout" style="margin-top: 28px; margin-right: 200px">Logout</a></li>
+        <li><button id="dropdown2" class="dropbtn" style="margin-top: 30px;" onclick="dropdownmenu2()">Favourites</button></li>
+        <li><a class="active" href="/view_details" style="margin-top: 28px;">Profile</a></li>
+        <li><a href="/translator" style="margin-top: 28px;">Translator</a></li>
+        <li><a href="/travel_cost" style="margin-top: 28px;">Cost</a></li>
+        <li><a href="/safety" style="margin-top: 28px;">Safety</a></li>
+        <li><button id="dropdown1" class="dropbtn" style="margin-top: 28px;" onclick="dropdownmenu1()">Recommendations</button></li>
+    </ul>
+
+    <div class="dropdown-content" id="dropdown_content1">
+        <a href="/attractions_recommendations">Attractions</a>
+        <a href="/hotels_recommendations">Hotels</a>
+        <a href="/restaurants_recommendations">Restaurants</a>
+    </div>
+
+    <div class="dropdown-content" id="dropdown_content2" style="margin-left: 1100px;">
+        <a href="/favourites/attractions">Attractions</a>
+        <a href="/favourites/hotels">Hotels</a>
+        <a href="/favourites/restaurants">Restaurants</a>
+    </div>
+
+    <!-- View Details -->
+    <div id="viewDetails" class="safety-box" style="height: 500px; width: 600px; position: relative; margin-top: 50px; padding: 28px; display: block">
+        <ul style="margin-bottom: 30px">
+            <li><button style="float: left; width: 175px; font-size: 18px; color: #fefcfc; border-bottom: 1px solid #fefcfc">View Details</button></li>
+            <li><button onclick="document.getElementById('editDetails').style.display = 'block'; document.getElementById('viewDetails').style.display = 'none'; document.getElementById('changePassword').style.display = 'none';" style="float: left; width: 175px; font-size: 18px; color: #fefcfc">Edit Details</button>                </li>
+            <li><button onclick="document.getElementById('editDetails').style.display = 'none'; document.getElementById('viewDetails').style.display = 'none'; document.getElementById('changePassword').style.display = 'block';" style="float: left; width: 175px; font-size: 18px; color: #fefcfc">Change Password</button>                </li>
+        </ul>
+        <div>
+            <p class="txt1" style="font-size: 18px; margin: 40px 0px 20px 50px">First Name:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{data[1]}}</p>
+            <p class="txt1" style="font-size: 18px; margin: 30px 0px 20px 50px">Last Name:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{data[2]}}</p>
+            <p class="txt1" style="font-size: 18px; margin: 30px 0px 20px 50px">Gender:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{data[4]}}</p>
+            <p class="txt1" style="font-size: 18px; margin: 30px 0px 20px 50px">Email_id:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{data[0]}}</p>
+            <p class="txt1" style="font-size: 18px; margin: 30px 0px 20px 50px">Contact_no:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{data[3]}}</p>
+            <p class="txt1" style="font-size: 18px; margin: 30px 0px 20px 50px">Date Of Birth:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{data[5]}}</p>
+            <p class="txt1" style="font-size: 18px; margin: 30px 0px 20px 50px">Approval Status:&nbsp;&nbsp;&nbsp;&nbsp;{{data[6]}}</p>
+        </div>
+    </div>
+
+    <!-- edit Details -->
+    <div id="editDetails" class="safety-box" style="height: 500px; width: 600px; position: relative; margin-top: 50px; padding: 28px; display: none">
+        <ul style="margin-bottom: 30px">
+            <li><button onclick="document.getElementById('editDetails').style.display = 'none'; document.getElementById('viewDetails').style.display = 'block'; document.getElementById('changePassword').style.display = 'none';" style="float: left; width: 175px; font-size: 18px; color: #fefcfc">View Details</button></li>
+            <li><button style="float: left; width: 175px; font-size: 18px; color: #fefcfc; border-bottom: 1px solid #fefcfc">Edit Details</button> </li>
+            <li><button onclick="document.getElementById('editDetails').style.display = 'none'; document.getElementById('viewDetails').style.display = 'none'; document.getElementById('changePassword').style.display = 'block';" style="float: left; width: 175px; font-size: 18px; color: #fefcfc">Change Password</button>                </li>
+        </ul>
+        <div>
+            <form action="/edit_details" method="POST">
+
+                <div class="wrap-input100 validate-input" data-validate="email" style="width: 60%; margin: 10px auto 10px auto">
+                    <input class="input100" type="email" name="email_id" value="{{data[0]}}" readonly>
+                </div>
+
+                <div class="wrap-input100 validate-input" data-validate="fname" style="width: 60%; margin: 17px auto 10px auto">
+                    <input class="input100" type="text" name="fname" value="{{data[1]}}">
+                    <span class="focus-input100" data-placeholder="&#xf207;"></span>
+                </div>
+
+                <div class="wrap-input100 validate-input" data-validate="lname" style="width: 60%; margin: 17px auto 10px auto">
+                    <input class="input100" type="text" name="lname" value="{{data[2]}}">
+                    <span class="focus-input100" data-placeholder="&#xf207;"></span>
+                </div>
+
+                <div class="wrap-input100 validate-input" data-validate="contact" style="width: 60%; margin: 17px auto 10px auto">
+                    <input class="input100" name="contact" type="number" minlength="10" maxlength="10" pattern="[1-9]{1}[0-9]{9}" value="{{data[3]}}">
+                    <span class="focus-input100" data-placeholder="&#xf2b9;"></span>
+                </div>
+
+                <div class="wrap-input100 validate-input" data-validate="dob" style="width: 60%; margin: 17px auto 20px auto">
+                    <input class="input100" name="dob" type="date" value="{{data[5]}}">
+                    <span class="focus-input100" data-placeholder="&#x2721;"></span>
+                </div>
+
+                <div class="container-login100-form-btn" style="margin-top: -10px">
+                    <button class="login100-form-btn">
+                       Save Changes
+                   </button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+    <!-- Change Password -->
+    <div id="changePassword" class="safety-box" style="height: 500px; width: 600px; position: relative; margin-top: 50px; padding: 28px; display: none">
+        <ul style="margin-bottom: 30px">
+            <li><button onclick="document.getElementById('editDetails').style.display = 'none'; document.getElementById('viewDetails').style.display = 'block'; document.getElementById('changePassword').style.display = 'none';" style="float: left; width: 175px; font-size: 18px; color: #fefcfc">View Details</button></li>
+            <li><button onclick="document.getElementById('editDetails').style.display = 'block'; document.getElementById('viewDetails').style.display = 'none'; document.getElementById('changePassword').style.display = 'none';" style="float: left; width: 175px; font-size: 18px; color: #fefcfc">Edit Details</button>                </li>
+            <li><button style="float: left; width: 175px; font-size: 18px; color: #fefcfc; border-bottom: 1px solid #fefcfc">Change Password</button> </li>
+        </ul>
+        <div>
+            <form action="/change_password" method="POST">
+
+                <div class="wrap-input100 validate-input" data-validate="email" style="width: 60%; margin: 10px auto 10px auto">
+                    <input class="input100" type="email" name="email_id" value="{{data[0]}}" readonly>
+                </div>
+
+                <div class="wrap-input100 validate-input" style="width: 60%; margin: 50px auto 30px auto" data-validate="Enter password">
+                    <input class="input100" type="password" name="new_pass1" id="new_pass1" placeholder="Enter New Password" required>
+                    <span class="focus-input100" data-placeholder="&#xf191;"></span>
+                </div>
+
+                <div class="wrap-input100 validate-input" style="width: 60%; margin: 30px auto 70px auto" data-validate="Enter password">
+                    <input class="input100" type="password" name="new_pass2" id="new_pass2" placeholder="Enter New Password Again" required>
+                    <span class="focus-input100" data-placeholder="&#xf191;"></span>
+                </div>
+
+                <div class="container-login100-form-btn">
+                    <button class="login100-form-btn">
+                       Submit
+                   </button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+    {% with messages = get_flashed_messages() %} {% if messages %} {% for msg in messages %}
+    <input type="hidden" id="hidden" value="{{msg}}">
+    <script>
+        alert(document.getElementById('hidden').value);
+    </script>
+    {% endfor %} {% endif %} {% endwith %}
+
+</body>
+<script>
+    var count1 = 0;
+    var count2 = 0;
+
+    function dropdownmenu1() {
+        if (count1 % 2 == 0) {
+            document.getElementById('dropdown_content1').style.display = 'block';
+            count1 += 1;
+        } else {
+            document.getElementById('dropdown_content1').style.display = 'none';
+            count1 += 1;
+        }
+    }
+
+    function dropdownmenu2() {
+        if (count2 % 2 == 0) {
+            document.getElementById('dropdown_content2').style.display = 'block';
+            count2 += 1;
+        } else {
+            document.getElementById('dropdown_content2').style.display = 'none';
+            count2 += 1;
+        }
+    }
+</script>
+{% endblock %}

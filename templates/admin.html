@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<body>
+
+	<div class="limiter">
+		<div class="container-login100" style="background-image: url('static/images/bg-01.jpg');">
+			<div class="wrap-login100">
+
+				<form class="login100-form validate-form" action="/validate_login" method="post">
+
+					<span class="login100-form-title p-b-34 p-t-20">
+						Admin Log in
+					</span>
+
+					<i class="fa fa-exclamation" id="email_icon" onmouseover="document.getElementById('error_email').style.visibility = 'visible';" onmouseout="document.getElementById('error_email').style.visibility = 'hidden';"></i>
+					<div class="wrap-input100 validate-input" id="email_block" data-validate = "Enter Email" style="width: 96%; margin-top: 0px">
+						<input class="input100" type="email" name="email" placeholder="Email" required>
+						<span class="focus-input100" data-placeholder="&#x2709;"></span>
+					</div>
+					<small id="error_email">a</small>
+
+					<i class="fa fa-exclamation" id="password_icon" style="margin-top: 55px;" onmouseover="document.getElementById('error_password').style.visibility = 'visible';" onmouseout="document.getElementById('error_password').style.visibility = 'hidden';"></i>
+					<div class="wrap-input100 validate-input" data-validate="Enter password" style="width: 96%">
+						<input class="input100" type="password" name="pass" placeholder="Password" required>
+						<span class="focus-input100" data-placeholder="&#xf191;"></span>
+					</div>
+					<small id="error_password">a</small>
+
+					<div class="container-login100-form-btn">
+						<button class="login100-form-btn">
+							Login
+						</button>
+					</div>
+				</form>
+					<div class="text-center p-t-30">
+						<button class="txt1" onclick="document.querySelector('.bg-model').style.display = 'flex';">
+							Forgot Password?
+						</button>
+					</div>
+			</div>
+			<div class="bg-model">
+				<div class="model-content">
+
+					<button class="close" onclick="document.querySelector('.bg-model').style.display = 'none';">
+							+
+					</button>
+
+					<form action="/forgot_password" method="post">
+						<span class="login100-form-title p-b-30 p-t-15">
+							Forgot Password
+						</span>
+
+						<div class="wrap-input100 validate-input" data-validate = "Enter Email">
+							<input class="input100" type="email" name="email_fp" placeholder="Email" required>
+							<span class="focus-input100" data-placeholder="&#x2709;"></span>
+						</div>
+
+						<div class="container-login100-form-btn">
+							<button class="login100-form-btn" onclick="checkLogin()">
+								Submit
+							</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	{% if error_statement %}
+		<input type="hidden" id="hidden1" value="{{error_statement}}">
+		<script>
+			document.getElementById("email_icon").style.visibility = 'visible';
+			document.getElementById("error_email").innerHTML = document.getElementById("hidden1").value;
+		</script>
+	{% endif %}
+
+	{% if error_statement1 %}
+		<input type="hidden" id="hidden2" value="{{error_statement1}}">
+		<script>
+			document.getElementById("password_icon").style.visibility = 'visible';
+			document.getElementById("error_password").innerHTML = document.getElementById("hidden2").value;
+		</script>
+	{% endif %}
+
+
+	{% if error_statement2 %}
+		<input type="hidden" id="hidden4" value="{{error_statement2}}">
+		<script>
+			alert(document.getElementById('hidden4').value);
+		</script>
+	{% endif %}
+
+	{% if success_statement %}
+		<input type="hidden" id="hidden3" value="{{success_statement}}">
+		<script>
+			alert(document.getElementById('hidden3').value);
+		</script>
+
+	{% endif %}
+
+	{% if message %}
+		<input type="hidden" id="hidden" value="{{message}}">
+		<script>
+               alert(document.getElementById('hidden').value);
+    	</script>
+	{% endif %}
+
+</body>
+
+{% endblock %}

@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<body style=" background-image: url('static/images/home.jpg');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: 100% 100%;">
+
+    <ul>
+        <li><a href="/home" style="float: left; font-size: 28px; font-weight: bold; margin-left: 200px; margin-top: 28px;">Trip Planner</a>
+            <img src="static/images/sunrise.png"
+                 style="width: 50px; float: left; margin-top: 32px;">
+        </li>
+        <li><a href="/logout" style="margin-top: 28px; margin-right: 200px">Logout</a></li>
+        <li><a href="/view_details" style="margin-top: 28px;">Profile</a></li>
+        <li><a href="/travel_cost" style="margin-top: 28px;">Cost</a></li>
+        <li><a href="/safety" style="margin-top: 28px;">Safety</a></li>
+        <li><button id="dropdown" class="dropbtn" style="margin-top: 28px;" onclick="dropdownmenu()">Recommendations</button></li>
+    </ul>
+
+    <div class="dropdown-content">
+        <a href="/recommendations">Attractions</a>
+        <a href="/hotels_recommendations">Hotels</a>
+        <a href="/restaurants_recommendations">Restaurants</a>
+    </div>
+    <p>{{form_status}}</p>
+</body>
+<script>
+
+    var button = document.getElementById('dropdown');
+    var count = 0;
+
+    function dropdownmenu() {
+
+        if(count%2==0){
+            document.querySelector('.dropdown-content').style.display = 'block';
+            count += 1;
+        }
+        else{
+            document.querySelector('.dropdown-content').style.display = 'none';
+            count += 1;
+        }
+
+    }
+</script>
+{% endblock %}

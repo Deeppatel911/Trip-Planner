@@ -1,0 +1,61 @@
+{% extends 'base.html' %} {% block body %}
+
+<body>
+    <h1 style="text-align:center;">Favourites</h1><br/>
+    <h3 style="text-align:center;"><u>Hotels</u></h3>
+    <a href="/home" class="close1">+</a> {% for hotel in data %}
+    <div style=" background: rgb(56,9,82);
+            background: linear-gradient(90deg, rgba(56,9,82,1) 0%, rgba(67,63,214,1) 100%);
+            width: 90%;
+            height: auto;
+            margin: 3%;
+            padding: 2%;
+            color: white;">
+        <form action="/remove_from_favourites/hotels/{{hotel[1]}}" method="GET">
+            <button class="favorites" type="submit">Remove</button>
+        </form>
+        <p style="font-size: 25px;color: white;">{{hotel[1]}}</p>
+        {% if hotel[2] == 5.0 %}
+        <p style="font-size: 20px; color: white">Rating :
+            <span class="fa fa-star checked"></span>
+            <span class="fa fa-star checked"></span>
+            <span class="fa fa-star checked"></span>
+            <span class="fa fa-star checked"></span>
+            <span class="fa fa-star checked"></span></p>
+        {% endif %} {% if hotel[2] == 4.5 %}
+        <p style="font-size: 20px; color: white">Rating :
+            <span class="fa fa-star checked"></span>
+            <span class="fa fa-star checked"></span>
+            <span class="fa fa-star checked"></span>
+            <span class="fa fa-star checked"></span>
+            <span class="fa fa-star checked-half"></span></p>
+        {% endif %} {% if hotel[2] == 4.0 %}
+        <p style="font-size: 20px; color: white">Rating :
+            <span class="fa fa-star checked"></span>
+            <span class="fa fa-star checked"></span>
+            <span class="fa fa-star checked"></span>
+            <span class="fa fa-star checked"></span>
+            <span class="fa fa-star unchecked"></span></p>
+        {% endif %} {% if hotel[2] == 3.5 %}
+        <p style="font-size: 20px; color: white">Rating :
+            <span class="fa fa-star checked"></span>
+            <span class="fa fa-star checked"></span>
+            <span class="fa fa-star checked"></span>
+            <span class="fa fa-star checked-half"></span>
+            <span class="fa fa-star unchecked"></span></p>
+        {% endif %} {% if hotel[2] == 3.0 %}
+        <p style="font-size: 20px; color: white">Rating :
+            <span class="fa fa-star checked"></span>
+            <span class="fa fa-star checked"></span>
+            <span class="fa fa-star checked"></span>
+            <span class="fa fa-star unchecked"></span>
+            <span class="fa fa-star unchecked"></span></p>
+        {% endif %}
+        <p style="color: white;">Price : {{hotel[3]}}</p>
+        <p style="color: white;">Address : {{hotel[4]}}</p>
+        <p style="color: white;">Amenities : {{hotel[5]}}</p>
+    </div>
+    {% endfor %}
+</body>
+
+{% endblock %}
