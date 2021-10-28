@@ -1,2 +1,2 @@
-mail_username = 'tripplanner1944204@gmail.com'
-mail_password = 'project@123'
+mail_username = 'demo_email'
+mail_password = 'demo_password'
